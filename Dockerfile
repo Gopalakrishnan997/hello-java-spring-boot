@@ -1,11 +1,11 @@
 # Build the application first using Maven
-FROM maven:3.8-openjdk-11 as build
+FROM maven:3.8-openjdk-8 as build
 WORKDIR /app
 COPY . .
 RUN mvn install
 
 # Inject the JAR file into a new container to keep the file small
-FROM openjdk:12-jre-alpine
+FROM openjdk:8-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/hello-java-spring-boot-*.jar /app/app.jar
 EXPOSE 8080
